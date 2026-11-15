@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Glowiee — Pure Radiance</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300&family=Jost:wght@300;400&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f7f1ea;--bg2:#efe3d8;--ink:#3b2f2a;--mute:#85756b;--gold:#a8844f;--blush:#e9c9bd;--card:#fffaf5;--line:rgba(59,47,42,.13);--serif:'Cormorant Garamond',Georgia,'Times New Roman',serif;--sans:'Jost','Helvetica Neue',Arial,sans-serif;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#1d1714;--bg2:#2a211c;--ink:#f3e8de;--mute:#b3a094;--gold:#d3ae7c;--blush:#6b4a42;--card:#241c18;--line:rgba(243,232,222,.15);color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#1d1714;--bg2:#2a211c;--ink:#f3e8de;--mute:#b3a094;--gold:#d3ae7c;--blush:#6b4a42;--card:#241c18;--line:rgba(243,232,222,.15);color-scheme:dark}
+html{scroll-behavior:smooth;scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box;margin:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-weight:300;min-height:100vh;overflow-x:hidden}
+header{position:fixed;top:0;left:0;right:0;z-index:20;display:flex;justify-content:space-between;align-items:center;gap:10px;padding:calc(16px + env(safe-area-inset-top,0px)) 5vw 16px;background:linear-gradient(var(--bg) 60%,transparent)}
+nav{display:flex;gap:clamp(12px,2.6vw,34px);flex-wrap:wrap;align-items:center}
+nav a,.bag{font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink);text-decoration:none;opacity:.7;cursor:pointer;background:none;border:0;font-family:var(--sans);transition:.3s}
+nav a:hover,nav a.on,.bag:hover{opacity:1;color:var(--gold)}
+.mini{display:flex;align-items:center;gap:10px;font-family:var(--serif);font-size:22px;letter-spacing:.06em;color:var(--ink);text-decoration:none}
+.mini svg{width:30px}
+.view{min-height:100vh;padding:120px 6vw 70px;opacity:0;transform:translateY(28px);transition:opacity 1s ease,transform 1s ease}
+.view.on{opacity:1;transform:none}
+@keyframes in{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+#home{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;position:relative;overflow:hidden}
+.orb{position:absolute;border-radius:50%;filter:blur(70px);opacity:.55;animation:float 14s ease-in-out infinite}
+.o1{width:48vmax;height:48vmax;background:radial-gradient(circle,var(--blush),transparent 70%);top:-14vmax;left:-10vmax}
+.o2{width:42vmax;height:42vmax;background:radial-gradient(circle,#e8d3ac,transparent 70%);bottom:-16vmax;right:-8vmax;animation-delay:-6s;opacity:.4}
+@keyframes float{50%{transform:translate(4vmax,3vmax) scale(1.08)}}
+.ring{position:absolute;width:min(78vmin,620px);aspect-ratio:1;border:1px solid var(--line);border-radius:50%;animation:spin 60s linear infinite}
+.ring.r2{width:min(100vmin,780px);animation-direction:reverse;animation-duration:90s;border-style:dashed}
+@keyframes spin{to{transform:rotate(360deg)}}
+.logo{width:clamp(110px,16vw,170px);position:relative;z-index:2}
+.glow{animation:pulse 4s ease-in-out infinite;transform-origin:center}
+@keyframes pulse{50%{opacity:.55;transform:scale(1.12)}}
+h1{font-family:var(--serif);font-weight:300;font-size:clamp(56px,13vw,150px);letter-spacing:.12em;line-height:1;margin-top:22px;position:relative;z-index:2;padding-left:.12em}
+.tag{font-size:12px;letter-spacing:.5em;text-transform:uppercase;color:var(--mute);margin-top:22px;position:relative;z-index:2}
+.cta{margin-top:44px;position:relative;z-index:2;display:inline-block;padding:15px 38px;border:1px solid var(--gold);color:var(--ink);font-size:12px;letter-spacing:.25em;text-transform:uppercase;text-decoration:none;transition:.4s}
+.cta:hover{background:var(--gold);color:#fff}
+.down{position:absolute;bottom:calc(28px + env(safe-area-inset-bottom,0px));left:50%;z-index:2;color:var(--gold);text-decoration:none;font-size:22px;animation:bob 2s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,10px)}}
+h2{font-family:var(--serif);font-weight:300;font-size:clamp(36px,6vw,64px);text-align:center;letter-spacing:.03em}
+.eyebrow{text-align:center;font-size:11px;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+.sub{text-align:center;color:var(--mute);margin:12px auto 48px;max-width:560px;line-height:1.8}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:28px;max-width:1150px;margin:auto}
+.card{background:var(--card);border:1px solid var(--line);padding:16px 16px 26px;text-align:center;transition:.5s}
+.card:hover{transform:translateY(-6px);box-shadow:0 26px 50px -28px rgba(80,50,30,.5)}
+.pic{height:290px;display:grid;place-items:end center;background:radial-gradient(ellipse at 50% 35%,rgba(255,255,255,.7),transparent 62%),linear-gradient(170deg,var(--bg2),var(--bg));margin-bottom:20px;position:relative;overflow:hidden}
+.pic::before{content:"";position:absolute;width:190px;height:190px;border-radius:50%;background:radial-gradient(circle,var(--blush),transparent 70%);top:20px;left:50%;transform:translateX(-50%);opacity:.7}
+.pic::after{content:"";position:absolute;bottom:0;left:0;right:0;height:34px;background:linear-gradient(transparent,rgba(120,90,60,.16))}
+.pic svg{height:250px;position:relative;z-index:2;margin-bottom:14px;transition:.6s}
+.card:hover .pic svg{transform:scale(1.05) translateY(-4px)}
+.card h3{font-family:var(--serif);font-weight:400;font-size:26px}
+.card p{font-size:13.5px;color:var(--mute);margin:6px auto 12px;line-height:1.7;max-width:230px}
+.price{color:var(--gold);letter-spacing:.12em;margin-bottom:16px;font-size:17px}
+.btn{background:none;border:1px solid var(--ink);color:var(--ink);padding:11px 26px;font:inherit;font-size:11px;letter-spacing:.22em;text-transform:uppercase;cursor:pointer;transition:.3s}
+.btn:hover{background:var(--ink);color:var(--bg)}
+.chips{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;max-width:760px;margin:0 auto 14px}
+.chip{display:flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--line);color:var(--ink);padding:11px 20px;border-radius:40px;font:inherit;font-size:13.5px;cursor:pointer;transition:.3s}
+.chip:hover{border-color:var(--gold)}
+.chip[aria-pressed=true]{background:var(--gold);border-color:var(--gold);color:#fff}
+.chip svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.5}
+.step{font-family:var(--serif);font-size:24px;text-align:center;margin:34px 0 16px}
+.info{max-width:700px;margin:10px auto 0;text-align:center;color:var(--mute);line-height:1.8;font-size:14px;min-height:50px;font-style:italic;font-family:var(--serif);font-size:19px}
+#res{max-width:1150px;margin:50px auto 0}
+.note{text-align:center;color:var(--mute);margin-bottom:26px;line-height:1.8}
+.why{font-size:12.5px;color:var(--gold);letter-spacing:.05em;margin-bottom:14px}
+.sum{text-align:center;margin:-20px 0 44px}
+.sum b{font-family:var(--serif);font-size:56px;font-weight:300;display:block;line-height:1}
+.st{color:#c79a4f;letter-spacing:3px}
+.rgrid{columns:3 280px;column-gap:26px;max-width:1150px;margin:auto}
+.rev{break-inside:avoid;background:var(--card);border:1px solid var(--line);padding:26px;margin-bottom:26px}
+.who{display:flex;align-items:center;gap:14px;margin:14px 0 12px}
+.av{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;font-family:var(--serif);font-size:19px;color:#fff;flex:none}
+.who b{font-weight:400;display:block}.who small{color:var(--mute);font-size:12px}
+.prod{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+.rev p{line-height:1.8;font-size:14.5px;font-family:var(--serif);font-size:18px}
+.toast{position:fixed;bottom:calc(24px + env(safe-area-inset-bottom,0px));left:50%;transform:translate(-50%,30px);background:var(--ink);color:var(--bg);padding:12px 26px;font-size:13px;letter-spacing:.08em;opacity:0;transition:.4s;z-index:30;pointer-events:none}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+footer{text-align:center;font-size:11px;letter-spacing:.25em;color:var(--mute);padding:10px 0 40px;text-transform:uppercase}
+@media(max-width:600px){header{flex-direction:column;gap:8px}.view{padding-top:150px}.tag{letter-spacing:.28em}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute"><defs>
+<radialGradient id="g"><stop offset="0" stop-color="#f4dcc0" stop-opacity=".9"/><stop offset="1" stop-color="#f4dcc0" stop-opacity="0"/></radialGradient>
+<linearGradient id="gd" x1="0" x2="1"><stop offset="0" stop-color="#e4c98f"/><stop offset=".5" stop-color="#b08d5e"/><stop offset="1" stop-color="#8d6c40"/></linearGradient>
+<symbol id="mark" viewBox="0 0 100 100"><circle class="glow" cx="50" cy="50" r="40" fill="url(#g)"/>
+<g fill="none" stroke="var(--gold)" stroke-width="1.4" stroke-linecap="round"><circle cx="50" cy="50" r="38" opacity=".6"/><path d="M50 14C58 32 58 40 50 50C42 40 42 32 50 14Z"/><path d="M50 86C58 68 58 60 50 50C42 60 42 68 50 86Z"/><path d="M14 50C32 42 40 42 50 50C40 58 32 58 14 50Z"/><path d="M86 50C68 42 60 42 50 50C60 58 68 58 86 50Z"/></g>
+<circle cx="50" cy="50" r="3.2" fill="var(--gold)"/><path d="M74 24l1.6 4.4 4.4 1.6-4.4 1.6L74 36l-1.6-4.4-4.4-1.6 4.4-1.6z" fill="var(--gold)"/></symbol>
+</defs></svg>
+
+<header>
+<a class="mini" href="#home"><svg viewBox="0 0 100 100"><use href="#mark"/></svg>Glowiee</a>
+<nav><a href="#home" data-v="home">Home</a><a href="#products" data-v="products">Products</a><a href="#skin" data-v="skin">Skin Guide</a><a href="#reviews" data-v="reviews">Reviews</a><button class="bag" id="bag">Cart (0)</button></nav>
+</header>
+
+<section class="view" id="home">
+<div class="orb o1"></div><div class="orb o2"></div><div class="ring"></div><div class="ring r2"></div>
+<svg class="logo" viewBox="0 0 100 100" aria-label="Glowiee logo"><use href="#mark"/></svg>
+<h1>Glowiee</h1>
+<div class="tag">Pure · Natural · Radiant</div>
+<a class="cta" href="#products">Discover</a>
+<a class="down" href="#products" aria-label="Scroll down">↓</a>
+</section>
+
+<section class="view" id="products">
+<div class="eyebrow">The Collection</div><h2>Our Products</h2>
+<p class="sub">Six botanical essentials for body and hair, formulated gently and finished with a soft, signature fragrance.</p>
+<div class="grid" id="grid"></div>
+</section>
+
+<section class="view" id="skin">
+<div class="eyebrow">Skin Consultation</div><h2>Select Your Skin Type &amp; Skin Concern</h2>
+<p class="sub">Tell us about your skin and we will suggest the Glowiee products that suit it best.</p>
+<div class="step">1 · Your skin type</div><div class="chips" id="types"></div><div class="info" id="tinfo">Choose a skin type to learn more about it.</div>
+<div class="step">2 · Your main concern</div><div class="chips" id="cons"></div><div class="info" id="cinfo">Choose a concern to learn what helps.</div>
+<div id="res"></div>
+</section>
+
+<section class="view" id="reviews">
+<div class="eyebrow">Loved By Our Community</div><h2>Product Reviews</h2>
+<p class="sub">Honest words from customers across India.</p>
+<div class="sum"><b>4.8</b><span class="st">★★★★★</span><br><small style="color:var(--mute)">Based on 2,140 verified reviews</small></div>
+<div class="rgrid" id="rgrid"></div>
+</section>
+<footer>© 2026 Glowiee · Imaginary brand for a college project</footer>
+<div class="toast" id="toast"></div>
+
+<script>
+const $=s=>document.querySelector(s);
+const P=[
+{n:"Body Wash",p:499,t:"pump",c:["#f4d9ce","#e4b8a8"],d:"A creamy, pH-balanced wash with rose water and aloe that leaves skin soft and lightly scented.",k:"rose water and aloe"},
+{n:"Soap",p:199,t:"soap",c:["#f6ecdc","#e2cfae"],d:"A cold-pressed botanical bar with neem and green tea for a clean, fresh and balanced feel.",k:"neem and green tea"},
+{n:"Hair Conditioner",p:549,t:"tube",c:["#e6e2cf","#c9c3a3"],d:"Silky slip with argan oil and silk protein to detangle, soften and add everyday shine.",k:"argan oil and silk protein"},
+{n:"Hair Mask",p:699,t:"jar",c:["#ecd2c2","#d1a58d"],d:"A deep-repair treatment with shea butter and almond oil for smooth, nourished, frizz-free hair.",k:"shea butter and almond oil"},
+{n:"Body Scrub",p:599,t:"tub",c:["#eadcc4","#cdb28a"],d:"Fine sugar crystals with vitamin C and coconut oil gently buff away dullness for a visible glow.",k:"sugar, vitamin C and coconut oil"},
+{n:"Shampoo",p:499,t:"cap",c:["#efe6ea","#d3c3cc"],d:"A sulphate-free, gentle cleanser with white tea and green tea that keeps scalp and hair balanced.",k:"white tea and hydrating botanicals"}];
+const label=(x,y,w,h,nm)=>`<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="3" fill="#fffaf3" opacity=".88"/><text x="${x+w/2}" y="${y+h/2-3}" text-anchor="middle" font-family="Georgia,serif" font-size="10" letter-spacing="2.5" fill="#3b2f2a">GLOWIEE</text><line x1="${x+w/2-12}" x2="${x+w/2+12}" y1="${y+h/2+3}" y2="${y+h/2+3}" stroke="#a8844f" stroke-width=".7"/><text x="${x+w/2}" y="${y+h/2+14}" text-anchor="middle" font-family="Georgia,serif" font-style="italic" font-size="7.2" fill="#85756b">${nm}</text>`;
+function pack(p,i){const[a,b]=p.c,id="p"+i;
+let s=`<svg viewBox="0 0 120 200"><defs><linearGradient id="${id}" x1="0" x2="1"><stop offset="0" stop-color="${b}"/><stop offset=".35" stop-color="${a}"/><stop offset=".7" stop-color="${a}"/><stop offset="1" stop-color="${b}"/></linearGradient></defs><ellipse cx="60" cy="193" rx="42" ry="5" fill="rgba(70,45,30,.25)"/>`;
+const gl=(x,y,h)=>`<rect x="${x}" y="${y}" width="5" height="${h}" rx="2.5" fill="#fff" opacity=".45"/>`;
+if(p.t=="pump")s+=`<rect x="53" y="52" width="14" height="22" fill="url(#gd)"/><rect x="48" y="38" width="24" height="16" rx="4" fill="url(#gd)"/><rect x="56" y="28" width="30" height="9" rx="4" fill="url(#gd)"/><rect x="30" y="72" width="60" height="120" rx="15" fill="url(#${id})"/>${gl(36,82,92)}${label(36,110,48,50,p.n)}`;
+if(p.t=="soap")s+=`<rect x="14" y="96" width="92" height="96" rx="30" fill="url(#${id})"/><rect x="14" y="128" width="92" height="30" fill="url(#gd)" opacity=".85"/>${gl(24,108,70)}<text x="60" y="140" text-anchor="middle" font-family="Georgia,serif" font-size="12" letter-spacing="3.5" fill="#fffaf3">GLOWIEE</text><text x="60" y="176" text-anchor="middle" font-family="Georgia,serif" font-style="italic" font-size="9" fill="#6e5a4c">Botanical Soap</text><text x="60" y="116" text-anchor="middle" font-size="12" fill="#a8844f">✦</text>`;
+if(p.t=="tube")s+=`<path d="M32 44h56l-4 126H36z" fill="url(#${id})"/><rect x="30" y="34" width="60" height="12" rx="2" fill="url(#${id})" stroke="rgba(0,0,0,.08)"/><path d="M32 40h56" stroke="rgba(0,0,0,.12)" stroke-dasharray="2 2"/><rect x="38" y="168" width="44" height="24" rx="6" fill="url(#gd)"/>${gl(40,56,100)}${label(38,80,44,56,p.n)}`;
+if(p.t=="jar")s+=`<rect x="22" y="112" width="76" height="80" rx="12" fill="url(#${id})"/><rect x="20" y="84" width="80" height="32" rx="7" fill="url(#gd)"/><rect x="22" y="88" width="76" height="4" fill="#fff" opacity=".35"/>${gl(30,122,60)}${label(30,128,60,54,p.n)}`;
+if(p.t=="tub")s+=`<rect x="12" y="122" width="96" height="70" rx="12" fill="url(#${id})"/><rect x="10" y="94" width="100" height="32" rx="7" fill="url(#gd)"/><rect x="12" y="98" width="96" height="4" fill="#fff" opacity=".35"/>${gl(20,132,48)}${label(30,134,60,48,p.n)}`;
+if(p.t=="cap")s+=`<rect x="42" y="28" width="36" height="30" rx="6" fill="url(#gd)"/><rect x="40" y="56" width="40" height="8" fill="#d8c7ae"/><path d="M40 62Q28 74 28 90V176Q28 192 44 192H76Q92 192 92 176V90Q92 74 80 62Z" fill="url(#${id})"/>${gl(34,92,84)}${label(36,108,48,50,p.n)}`;
+return s+"</svg>"}
+const fmt=n=>"₹"+n.toLocaleString("en-IN");
+const card=(p,i,why)=>`<div class="card"><div class="pic">${pack(p,i)}</div><h3>${p.n}</h3><p>${p.d}</p>${why?`<div class="why">${why}</div>`:""}<div class="price">${fmt(p.p)}</div><button class="btn" data-add="${i}">Add to Cart</button></div>`;
+$('#grid').innerHTML=P.map((p,i)=>card(p,i)).join('');
+
+let cart=0;
+document.addEventListener('click',e=>{const b=e.target.closest('[data-add]');if(!b)return;cart++;$('#bag').textContent=`Cart (${cart})`;toast(P[b.dataset.add].n+" added to your cart ✓")});
+function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('on'),1800)}
+
+const ic={Normal:'<circle cx="8" cy="8" r="5.5"/>',Dry:'<path d="M8 2C11 6 12 8 12 10a4 4 0 0 1-8 0c0-2 1-4 4-8z"/>',Oily:'<path d="M8 2C11 6 12 8 12 10a4 4 0 0 1-8 0c0-2 1-4 4-8z"/><path d="M6 10a2 2 0 0 0 2 2"/>',Combination:'<circle cx="8" cy="8" r="5.5"/><path d="M8 2.5v11"/>',Sensitive:'<path d="M8 13S2.5 9.5 2.5 6a3 3 0 0 1 5.5-1.6A3 3 0 0 1 13.5 6C13.5 9.5 8 13 8 13z"/>'};
+const T={Normal:"Balanced, neither too oily nor too dry, with a smooth texture and few concerns. Gentle maintenance keeps it that way.",Dry:"Produces less natural oil, so skin can feel tight, rough or flaky. It needs rich moisture and mild, non-stripping cleansers.",Oily:"Makes extra sebum, so skin can look shiny and be prone to clogged pores. Lightweight, balancing formulas work best.",Combination:"An oilier T-zone (forehead, nose, chin) with normal or dry cheeks. It needs balance rather than heavy products.",Sensitive:"Reacts easily with redness, stinging or itching. Choose mild, fragrance-conscious formulas and always patch test."};
+const C={"Acne & Breakouts":"Caused by excess oil, trapped dead skin and bacteria. Keep skin clean with purifying ingredients like neem and green tea.","Dryness":"Happens when skin loses moisture faster than it can replace it. Look for aloe, shea butter and nourishing oils.","Dull Skin":"Often caused by a build-up of dead cells. Gentle exfoliation and vitamin C help reveal fresh, bright skin.","Uneven Skin Tone":"Patchy colour from sun exposure or past marks. Regular gentle exfoliation and brightening ingredients help even it out.","Dark Spots":"Extra pigment left after marks or sun damage. Consistent exfoliation, vitamin C and daily sunscreen help them fade.","Sensitive Skin":"Skin that reacts quickly to harsh formulas. Pick soothing, mild products and avoid strong scrubbing.","Excess Oil":"Overactive oil glands cause shine. Lightweight cleansing helps; over-washing can make oil worse."};
+const cs={"Acne & Breakouts":[3,1,1,0,0,1],Dryness:[3,0,1,1,2,0],"Dull Skin":[1,0,0,0,3,0],"Uneven Skin Tone":[1,0,0,0,3,0],"Dark Spots":[1,0,0,0,3,0],"Sensitive Skin":[3,2,1,0,0,1],"Excess Oil":[1,3,0,0,0,2]};
+cs["Acne & Breakouts"]=[2,3,0,0,0,1];
+const ts={Normal:[0,0,0,0,1,0],Dry:[2,0,1,1,1,0],Oily:[0,2,0,0,0,1],Combination:[1,1,0,0,0,0],Sensitive:[2,1,1,0,-3,0]};
+let ty=null,co=null;
+$('#types').innerHTML=Object.keys(T).map(k=>`<button class="chip" aria-pressed="false" data-t="${k}"><svg viewBox="0 0 16 16">${ic[k]}</svg>${k}</button>`).join('');
+$('#cons').innerHTML=Object.keys(C).map(k=>`<button class="chip" aria-pressed="false" data-c="${k}">${k}</button>`).join('');
+document.addEventListener('click',e=>{const b=e.target.closest('.chip');if(!b)return;
+if(b.dataset.t){ty=b.dataset.t;document.querySelectorAll('[data-t]').forEach(x=>x.setAttribute('aria-pressed',x===b));$('#tinfo').textContent=T[ty]}
+else{co=b.dataset.c;document.querySelectorAll('[data-c]').forEach(x=>x.setAttribute('aria-pressed',x===b));$('#cinfo').textContent=C[co]}
+rec()});
+function rec(){const r=$('#res');if(!ty||!co){r.innerHTML=ty||co?`<p class="note">Now choose your ${ty?"concern":"skin type"} to see your personalised picks.</p>`:"";return}
+const sc=P.map((p,i)=>({i,s:cs[co][i]+ts[ty][i]})).filter(x=>x.s>0).sort((a,b)=>b.s-a.s).slice(0,3);
+r.innerHTML=`<div class="eyebrow">Your Personalised Picks</div><h2 style="font-size:40px">For ${ty} skin &amp; ${co.toLowerCase()}</h2><p class="note" style="margin-top:12px">${ty=="Sensitive"||co=="Sensitive Skin"?"We chose mild formulas. Please patch test any new product first.":"These products suit your skin profile best."}</p><div class="grid">${sc.map(x=>card(P[x.i],x.i,"Key ingredients: "+P[x.i].k)).join('')}</div>`;
+r.scrollIntoView({behavior:"smooth",block:"start"})}
+
+const R=[["Ananya Sharma","Delhi","Body Wash",5,"The fragrance feels really fresh and luxurious. My skin feels soft and refreshed after every use.","#c99b8a"],
+["Priya Verma","Lucknow","Hair Mask",5,"My hair feels much smoother and healthier after using this. The texture and fragrance are amazing.","#a98f78"],
+["Riya Kapoor","Mumbai","Body Scrub",5,"Not harsh at all. The sugar is fine, my elbows and knees look brighter, and the coconut scent stays for hours.","#b9a07a"],
+["Sneha Gupta","Jaipur","Shampoo",4,"Lathers well even though it is sulphate-free. My scalp feels clean without that tight feeling. I wish the bottle were a little bigger.","#9fa08a"],
+["Aditi Singh","Pune","Soap",5,"Finally a soap that does not dry out my oily skin. It lasts nearly a month and smells subtly of tea.","#b68e9a"],
+["Kavya Mehta","Ahmedabad","Hair Conditioner",5,"I have thick, wavy hair that tangles easily. Combing after a wash is now so much easier and there is less frizz.","#8f9fa3"],
+["Isha Nair","Bengaluru","Body Wash",4,"Gentle enough for my sensitive skin, and I did not get any irritation. It is lightly scented, which I prefer.","#c0937f"],
+["Meera Iyer","Chennai","Hair Mask",5,"I use it once a week. After the second use my ends felt noticeably softer. Worth the price for me.","#a79484"],
+["Tanvi Joshi","Indore","Body Scrub",4,"Lovely texture and a good glow after use. I use it twice a week and moisturise afterwards.","#b8a384"]];
+$('#rgrid').innerHTML=R.map(r=>`<div class="rev"><span class="st">${"★".repeat(r[3])}${"☆".repeat(5-r[3])}</span><div class="who"><div class="av" style="background:linear-gradient(135deg,${r[5]},#8d6c40)">${r[0][0]}</div><div><b>${r[0]}</b><small>${r[1]} · Verified buyer</small></div></div><div class="prod">Glowiee ${r[2]}</div><p>“${r[4]}”</p></div>`).join('');
+
+const secs=[...document.querySelectorAll('.view')];
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('on')}),{threshold:.1});
+const spy=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)document.querySelectorAll('nav a').forEach(a=>a.classList.toggle('on',a.dataset.v===e.target.id))}),{rootMargin:'-45% 0px -50% 0px'});
+secs.forEach(s=>{io.observe(s);spy.observe(s)});
+</script>
+</body>
+</html>
